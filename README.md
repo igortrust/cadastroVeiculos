@@ -108,3 +108,27 @@ Para executar o frontend, siga as etapas abaixo:
   
 
 A documentação detalhada da API está disponível em \`localhost:8080/api-docs\`.
+
+## ⚙️ Executando os Testes
+
+Para executar os testes automatizados e verificar a cobertura de código, siga as instruções abaixo:
+
+1. Certifique-se de que as dependências estão instaladas:
+
+	    npm install
+	ou
+
+	    yarn
+
+2. Execute o comando de teste:
+   
+
+	   yarn test
+
+3. Os testes serão executados e você verá a cobertura de código no terminal.
+
+4. Para visualizar a cobertura de código de forma mais detalhada, abra o arquivo \`coverage/lcov-report/index.html\` no seu navegador.
+
+🔗 [Cobertura de Código com NYC](file:///caminho/backend/coverage/lcov-report/index.html)
+
+Aproveite e verifique a alta cobertura de 92% dos testes automatizados!
