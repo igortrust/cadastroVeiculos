@@ -6,7 +6,7 @@ const veiculoRoutes = Router();
 
 veiculoRoutes.get('/veiculos', getAllVeiculos);
 veiculoRoutes.post('/veiculos', validateVeiculo, checkVeiculoExists, createVeiculo);
-veiculoRoutes.put('/veiculos/:id', validateVeiculo, updateVeiculo);
+veiculoRoutes.put('/veiculos/:id', updateVeiculo);
 veiculoRoutes.delete('/veiculos/:id', deleteVeiculo);
 
 export default veiculoRoutes;
