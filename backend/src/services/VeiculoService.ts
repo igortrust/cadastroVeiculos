@@ -31,5 +31,37 @@ export default class VeiculoService {
             throw error;
         }
     }
+
+    static deleteVeiculo = async (id: number) => { 
+        try {
+            const veiculos = await this.getVeiculos();
+            const veiculoIndex = veiculos.findIndex((veiculo: { id: number; }) => veiculo.id === id);
+            if (veiculoIndex === -1) {
+                throw new Error('Veículo não encontrado');
+            }
+            veiculos.splice(veiculoIndex, 1);
+            fs.writeFileSync(filePath, JSON.stringify(veiculos));
+            return veiculos;
+        } catch (error) {
+            console.log("🚀 ~ file: VeiculoService.ts:42 ~ VeiculoService ~ deleteVeiculo ~ error:", error)
+            throw error;
+        }
+    }
+
+    static updateVeiculo = async (id: number, veiculo: Veiculo) => { 
+        try {
+            const veiculos = await this.getVeiculos();
+            const veiculoIndex = veiculos.findIndex((veiculo: { id: number; }) => veiculo.id === id);
+            if (veiculoIndex === -1) {
+                throw new Error('Veículo não encontrado');
+            }
+            veiculos[veiculoIndex] = veiculo;
+            fs.writeFileSync(filePath, JSON.stringify(veiculos));
+            return veiculo;
+        } catch (error) {
+            console.log("🚀 ~ file: VeiculoService.ts:56 ~ VeiculoService ~ updateVeiculo ~ error:", error)
+            throw error;
+        }
+    }
     
 }
