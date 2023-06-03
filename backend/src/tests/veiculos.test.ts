@@ -37,7 +37,19 @@ describe('Testes unitários para endpoint Veiculos', () => {
 
         expect(veiculoSalvo.status).to.be.equal(201);
         expect(veiculoSalvo.body).to.have.property('id');
-        expect(veiculoSalvo.body.renavam)
+        expect(veiculoSalvo.body.renavam).to.be.equal(veiculo.renavam);
+    });
+
+    it('Deve retornar status 400 por placa não informada', async () => {
+        const veiculo = {
+            chassi: Math.random().toString(36).substring(2, 5).toUpperCase() + '-' + Math.random().toString(36).substring(2, 5).toUpperCase(),
+            renavam: Math.random().toString(36).substring(2, 11).toUpperCase(),
+            modelo: Math.random().toString(36).substring(2, 5).toUpperCase(),
+            marca: Math.random().toString(36).substring(2, 5).toUpperCase(),
+        };
+        const veiculoSalvo = await request(app).post('/veiculos').send(veiculo);
+        expect(veiculoSalvo.status).to.be.equal(400);
+        expect(veiculoSalvo.body.error).to.be.equal('O campo placa é obrigatório');
     });
 
     it('Deve retornar status 400 por chassi não informado', async () => {
@@ -50,6 +62,42 @@ describe('Testes unitários para endpoint Veiculos', () => {
         const veiculoSalvo = await request(app).post('/veiculos').send(veiculo);
         expect(veiculoSalvo.status).to.be.equal(400);
         expect(veiculoSalvo.body.error).to.be.equal('O campo chassi é obrigatório');
+    });
+    
+    it('Deve retornar status 400 por renavam não informado', async () => {
+        const veiculo = {
+            placa: Math.random().toString(36).substring(2, 5).toUpperCase() + '-' + Math.random().toString(36).substring(2, 5).toUpperCase(),
+            chassi: Math.random().toString(36).substring(2, 11).toUpperCase(),
+            modelo: Math.random().toString(36).substring(2, 5).toUpperCase(),
+            marca: Math.random().toString(36).substring(2, 5).toUpperCase(),
+        };
+        const veiculoSalvo = await request(app).post('/veiculos').send(veiculo);
+        expect(veiculoSalvo.status).to.be.equal(400);
+        expect(veiculoSalvo.body.error).to.be.equal('O campo renavam é obrigatório');
+    });
+
+    it('Deve retornar status 400 por modelo não informado', async () => {
+        const veiculo = {
+            placa: Math.random().toString(36).substring(2, 5).toUpperCase() + '-' + Math.random().toString(36).substring(2, 5).toUpperCase(),
+            chassi: Math.random().toString(36).substring(2, 11).toUpperCase(),
+            renavam: Math.random().toString(36).substring(2, 5).toUpperCase(),
+            marca: Math.random().toString(36).substring(2, 5).toUpperCase(),
+        };
+        const veiculoSalvo = await request(app).post('/veiculos').send(veiculo);
+        expect(veiculoSalvo.status).to.be.equal(400);
+        expect(veiculoSalvo.body.error).to.be.equal('O campo modelo é obrigatório');
+    });
+
+    it('Deve retornar status 400 por marca não informado', async () => {
+        const veiculo = {
+            placa: Math.random().toString(36).substring(2, 5).toUpperCase() + '-' + Math.random().toString(36).substring(2, 5).toUpperCase(),
+            chassi: Math.random().toString(36).substring(2, 11).toUpperCase(),
+            renavam: Math.random().toString(36).substring(2, 5).toUpperCase(),
+            modelo: Math.random().toString(36).substring(2, 5).toUpperCase(),
+        };
+        const veiculoSalvo = await request(app).post('/veiculos').send(veiculo);
+        expect(veiculoSalvo.status).to.be.equal(400);
+        expect(veiculoSalvo.body.error).to.be.equal('O campo marca é obrigatório');
     });
 
     it('Deve retornar status 200 e um array com um veículo', async () => {
