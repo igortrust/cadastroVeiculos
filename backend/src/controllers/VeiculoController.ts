@@ -39,13 +39,14 @@ export const deleteVeiculo = async (req: Request, res: Response) => {
 export const updateVeiculo = async (req: Request, res: Response) => { 
     try {
         const id = Number(req.params.id);
-        console.log("🚀 ~ file: VeiculoController.ts:42 ~ updateVeiculo ~ id:", req.params.id)
         const veiculo: Veiculo = req.body;
-    // adicionar id ao veiculo
         veiculo.id = Number(id);
         await veiculosService.updateVeiculo(id, veiculo);
-        return res.status(200).json({ message: `Veículo com id ${id} atualizado com sucesso!` });
+            return res.status(200).json({ message: `Veículo com id ${id} atualizado com sucesso!` });
     } catch (error: any) {
+        if (error.message === 'Veículo não encontrado') {
+            return res.status(404).json({ error: error.message });
+        }
         return res.status(500).json({ error: error.message });
     }
 };
