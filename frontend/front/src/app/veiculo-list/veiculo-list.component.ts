@@ -60,7 +60,7 @@ export class VeiculoListComponent implements OnInit {
       const veiculoData = this.veiculoForm.value;
       this.http.post<any>('http://localhost:8080/veiculos', veiculoData).subscribe(
         (response) => {
-        this.errorMessage = 'Veículo inserido com sucesso!'; // Limpa a mensagem de erro
+          this.errorMessage = 'Veículo inserido com sucesso!'; // Limpa a mensagem de erro
           console.log('Veículo inserido com sucesso:', response);
           this.veiculoForm.reset();
           this.fetchVeiculos();
@@ -71,6 +71,7 @@ export class VeiculoListComponent implements OnInit {
         }
       );
     } else {
+      this.errorMessage = 'Campos obrigatórios não preenchidos.'
       console.log('Formulário inválido. Verifique os campos.');
     }
   }
@@ -91,29 +92,28 @@ export class VeiculoListComponent implements OnInit {
 
   submitEditVeiculoForm() {
     // Obtenha os valores do formulário de edição
-    const editVeiculoData = this.editVeiculoForm.value;
-    const veiculoId = this.veiculoToEdit.id;
-    console.log("🚀 ~ file: veiculo-list.component.ts:95 ~ VeiculoListComponent ~ submitEditVeiculoForm ~ veiculoId:", veiculoId)
+    if (this.editVeiculoForm.valid) {
+      const editVeiculoData = this.editVeiculoForm.value;
+      const veiculoId = this.veiculoToEdit.id;
 
-    // Faça a requisição PUT para atualizar o veículo
-    this.http.put<any>(`http://localhost:8080/veiculos/${veiculoId}`, editVeiculoData).subscribe(
-      (response) => {
-
+      this.http.put<any>(`http://localhost:8080/veiculos/${veiculoId}`, editVeiculoData).subscribe(
+        (response) => {
           this.errorMessage = '';
           this.fetchVeiculos();
           this.resetEditVeiculoForm();
           this.closeEditModal();
-
-      },
-      (error) => {
-        console.error('Ocorreu um erro ao editar o veículo:', error);
-        this.errorMessage = 'Erro ao editar o veículo. Por favor, tente novamente.';
-      }
-    );
+        },
+        (error) => {
+          console.error('Ocorreu um erro ao editar o veículo:', error);
+          this.errorMessage = 'Erro ao editar o veículo. Por favor, tente novamente.';
+        }
+      );
+    } else {
+      this.errorMessage = 'Campos obrigatórios não preenchidos.'
+    }
   }
 
   deleteVeiculo(veiculo: any) {
-    console.log(veiculo)
     this.http.delete(`http://localhost:8080/veiculos/${veiculo.id}`).subscribe(
       (response) => {
         console.log('Veículo excluído com sucesso:', response);
@@ -141,9 +141,8 @@ export class VeiculoListComponent implements OnInit {
   }
 
   closeVeiculoModal() {
-    console.log("aqui")
     this.isModalOpen = false;
-    this.veiculoModalOpen  = false;
+    this.veiculoModalOpen = false;
     this.resetVeiculoForm();
   }
 }
