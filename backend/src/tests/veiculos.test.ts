@@ -73,4 +73,51 @@ describe('Testes unitários para endpoint Veiculos', () => {
         expect(veiculoSalvo.status).to.be.equal(400);
         expect(veiculoSalvo.body.error).to.be.equal('Já existe um veículo com a placa, chassi ou renavam informados');
     });
+
+    it('Deve atualizar o veículo e retornar status 200', async () => { 
+        const veiculo = {
+            "placa": "ABC-1234",
+            "chassi": "12345678901234567",
+            "renavam": "12345678901",
+            "modelo": "Uno",
+            "marca": "Fiat",
+            "ano": 2021
+        };
+        const veiculoSalvo = await request(app).put('/veiculos/1').send(veiculo);
+
+        expect(veiculoSalvo.status).to.be.equal(200);
+    });
+
+        // Teste para deletar veiculo
+    it('Deve deletar o veículo e retornar status 200', async () => {
+        // criar veiculo
+        const veiculo = {
+            "placa": "Delete-1234",
+            "chassi": "Delete12345678901234567",
+            "renavam": "Delete12345678901",
+            "modelo": "Uno",
+            "marca": "Fiat",
+            "ano": 2021
+        };
+        const veiculoSalvo = await request(app).post('/veiculos').send(veiculo);
+        // deletar veiculo
+        const veiculoDeletado = await request(app).delete('/veiculos/2');
+        expect(veiculoDeletado.status).to.be.equal(200);
+    });
+    
+    it('Deve retornar status 404, veículo não encontrado', async () => { 
+        const veiculo = {
+            "placa": "ABC-1234",
+            "chassi": "12345678901234567",
+            "renavam": "12345678901",
+            "modelo": "Uno",
+            "marca": "Fiat",
+            "ano": 2021
+        };
+        const veiculoSalvo = await request(app).put('/veiculos/999910').send(veiculo);
+
+        expect(veiculoSalvo.status).to.be.equal(404);
+    });
+
+
 });
