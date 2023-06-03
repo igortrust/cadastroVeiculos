@@ -7,7 +7,21 @@ export default class VeiculoService {
     static getVeiculos = async () => {
         try {
             if (!fs.existsSync(filePath)) {
-                fs.writeFileSync(filePath, '[]');
+                const veiculos = [];
+                for (let i = 0; i < 5; i++) {
+                    const veiculo = {
+                        "placa": `TEST-${i}${i}${i}${i}`,
+                        "chassi": `1234567890123456${i}`,
+                        "renavam": `1234567890${i}`,
+                        "modelo": "Uno",
+                        "marca": "Fiat",
+                        "ano": 2021,
+                        "id": i
+                    }
+                    veiculos.push(veiculo);
+                }
+
+                fs.writeFileSync(filePath, JSON.stringify(veiculos, null, 2));
             }
             const data = fs.readFileSync(filePath, 'utf8');
             return JSON.parse(data);
