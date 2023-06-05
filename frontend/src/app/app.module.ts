@@ -1,4 +1,4 @@
-import { NgModule, importProvidersFrom } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -8,15 +8,14 @@ import { HttpClientModule } from '@angular/common/http';
 import { FiltroVeiculosPipe } from './pipes/filtro-veiculos.pipe';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { TableRowBindingExample } from './example/table-pagination-example';
-
+import {TableRowBindingExample} from './Components/table/table'
 
 @NgModule({
   declarations: [
     AppComponent,
     VeiculoListComponent,
-    FiltroVeiculosPipe
+    FiltroVeiculosPipe,
+    
   ],
   imports: [
     BrowserModule,
@@ -25,7 +24,6 @@ import { TableRowBindingExample } from './example/table-pagination-example';
     FormsModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
-    MatSlideToggleModule,
     TableRowBindingExample
   ],
   providers: [],

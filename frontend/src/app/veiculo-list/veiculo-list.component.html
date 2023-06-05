@@ -1,34 +1,5 @@
-<h2>Lista de Veículos</h2>
-<button (click)="openVeiculoModal()">Adicionar Veículo</button>
-<table>
-  <tr>
-    <th>Modelo</th>
-    <th>Placa</th>
-    <th>Chassi</th>
-    <th>Renavam</th>
-    <th>Marca</th>
-    <th>Ano</th>
-    <th>Editar</th>
-    <th>Excluir</th>
-  </tr>
-  <tr *ngFor="let veiculo of veiculos">
-    <td>{{ veiculo.modelo }}</td>
-    <td>{{ veiculo.placa }}</td>
-    <td>{{ veiculo.chassi }}</td>
-    <td>{{ veiculo.renavam }}</td>
-    <td>{{ veiculo.marca }}</td>
-    <td>{{ veiculo.ano }}</td>
-    <td>
-      <button (click)="editVeiculo(veiculo)">Editar</button>
-    </td>
-    <td>
-      <button (click)="deleteVeiculo(veiculo)">Excluir</button>
-    </td>
-  </tr>
-</table>
 
 
-<!-- Modal para editar veículo -->
 <div class="modal" [class.show]="isEditing" *ngIf="veiculoToEdit">
   <h2>Editar Veículo</h2>
   <form [formGroup]="editVeiculoForm" (ngSubmit)="submitEditVeiculoForm()">
@@ -83,7 +54,6 @@
     <button (click)="closeVeiculoModal()">Fechar</button>
   </div>
 </div>
-
 
 
 <p *ngIf="errorMessage" class="error-message">{{ errorMessage }}</p>
