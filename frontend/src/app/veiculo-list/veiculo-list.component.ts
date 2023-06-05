@@ -71,7 +71,6 @@ export class VeiculoListComponent implements OnInit {
         }
       );
     } else {
-      this.errorMessage = 'Campos obrigatórios não preenchidos.'
       console.log('Formulário inválido. Verifique os campos.');
     }
   }
@@ -92,28 +91,24 @@ export class VeiculoListComponent implements OnInit {
 
   submitEditVeiculoForm() {
     // Obtenha os valores do formulário de edição
-    if (this.editVeiculoForm.valid) {
-      const editVeiculoData = this.editVeiculoForm.value;
-      const veiculoId = this.veiculoToEdit.id;
-
-      this.http.put<any>(`http://localhost:8080/veiculos/${veiculoId}`, editVeiculoData).subscribe(
-        (response) => {
-          this.errorMessage = '';
-          this.fetchVeiculos();
-          this.resetEditVeiculoForm();
-          this.closeEditModal();
-        },
-        (error) => {
-          console.error('Ocorreu um erro ao editar o veículo:', error);
-          this.errorMessage = 'Erro ao editar o veículo. Por favor, tente novamente.';
-        }
-      );
-    } else {
-      this.errorMessage = 'Campos obrigatórios não preenchidos.'
-    }
+    const editVeiculoData = this.editVeiculoForm.value;
+    const veiculoId = this.veiculoToEdit.id;
+    this.http.put<any>(`http://localhost:8080/veiculos/${veiculoId}`, editVeiculoData).subscribe(
+      (response) => {
+        this.errorMessage = '';
+        this.fetchVeiculos();
+        this.resetEditVeiculoForm();
+        this.closeEditModal();
+      },
+      (error) => {
+        console.error('Ocorreu um erro ao editar o veículo:', error);
+        this.errorMessage = 'Erro ao editar o veículo. Por favor, tente novamente.';
+      }
+    );
   }
 
   deleteVeiculo(veiculo: any) {
+    console.log(veiculo)
     this.http.delete(`http://localhost:8080/veiculos/${veiculo.id}`).subscribe(
       (response) => {
         console.log('Veículo excluído com sucesso:', response);
@@ -137,10 +132,11 @@ export class VeiculoListComponent implements OnInit {
     this.isEditing = false;
   }
   openVeiculoModal() {
-    this.isModalOpen = true;
+    this.isModalOpen = false;
   }
 
   closeVeiculoModal() {
+    console.log("aqui")
     this.isModalOpen = false;
     this.veiculoModalOpen = false;
     this.resetVeiculoForm();

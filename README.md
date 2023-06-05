@@ -11,7 +11,7 @@
 
   
 
-Este projeto incrível foi desenvolvido com o objetivo de fornecer uma solução de CRUD de veículos. O backend foi construído com TypeScript, enquanto o frontend foi desenvolvido com Angular.
+Este projeto foi desenvolvido com o objetivo de fornecer uma solução simples de CRUD de veículos. O backend foi construído com TypeScript, Express, Mocha e Swagger, enquanto o frontend foi desenvolvida uma pagina simples com Angular.
 
   
 
@@ -107,7 +107,7 @@ Para executar o frontend, siga as etapas abaixo:
 
   
 
-A documentação detalhada da API está disponível em \`localhost:8080/api-docs\`.
+A documentação da da API está disponível em \`localhost:8080/api-docs\`.
 
 ## ⚙️ Executando os Testes
 
@@ -131,4 +131,4 @@ Para executar os testes automatizados e verificar a cobertura de código, siga a
 
 🔗 [Cobertura de Código com NYC](file:///caminho/backend/coverage/lcov-report/index.html)
 
-Aproveite e verifique a alta cobertura de 92% dos testes automatizados!
+Aproveite e verifique a cobertura de 92% dos testes automatizados!

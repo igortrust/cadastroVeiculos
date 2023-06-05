@@ -11,25 +11,16 @@ import { HttpClient } from '@angular/common/http';
 
 
 export interface PeriodicElement {
-  name: string;
+  modelo: string;
+  ano: number;
+  marca: string;
+  placa: string;
+  chassi: string;
+  renavam: string;
   position: number;
   weight: number;
   symbol: string;
 }
-
-
-const ELEMENT_DATA: PeriodicElement[] = [
-  { position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H' },
-  { position: 2, name: 'Helium', weight: 4.0026, symbol: 'He' },
-  { position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li' },
-  { position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be' },
-  { position: 5, name: 'Boron', weight: 10.811, symbol: 'B' },
-  { position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C' },
-  { position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N' },
-  { position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O' },
-  { position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F' },
-  { position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne' },
-];
 
 /**
  * @title Binding event handlers and properties to the table rows.
@@ -71,17 +62,11 @@ export class TableRowBindingExample {
   veiculosMatTable: any[] = [];
   veiculoToEdit: any = null;
   editVeiculoForm: FormGroup;
-
-
-  displayedColumns: string[] = ['position', 'name', 'marca', 'placa', 'chassi', 'ano', 'renavam', 'editar'];
-  dataSource = ELEMENT_DATA;
+  displayedColumns: string[] = ['position', 'modelo', 'marca', 'placa', 'chassi', 'ano', 'renavam', 'editar'];
+  dataSource = this.veiculosMatTable;
   clickedRows = new Set<PeriodicElement>();
 
-
-
   openDialog(periodicElement: PeriodicElement): void {
-
-    console.log("aqui", periodicElement)
     const dialogRef = this.dialog.open(DialogOverviewExampleDialog, {
       data: periodicElement,
     });
@@ -93,9 +78,23 @@ export class TableRowBindingExample {
     });
   }
 
+  addVeiculoDialog() {
+    const dialogRef = this.dialog.open(DialogNewVeiculo, {
+      data: {
+        modelo: '',
+        placa: '',
+        chassi: '',
+        renavam: '',
+        marca: '',
+        ano: ''
+      },
+    });
 
-
-
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      console.log(result)
+    });
+  }
 }
 @Component({
   selector: 'dialog-overview-example-dialog',
@@ -104,15 +103,15 @@ export class TableRowBindingExample {
   styleUrls: ['dialog-overview-example-dialog.css'],
   imports: [MatDialogModule, MatFormFieldModule, MatInputModule, FormsModule, MatButtonModule],
 })
-export class DialogOverviewExampleDialog {
 
+
+export class DialogOverviewExampleDialog {
   veiculoToEdit: any = null;
   editVeiculoForm: FormGroup;
   constructor(private http: HttpClient,
     public dialogRef: MatDialogRef<DialogOverviewExampleDialog>,
-    @Inject(MAT_DIALOG_DATA) public data: PeriodicElement,private formBuilder: FormBuilder
+    @Inject(MAT_DIALOG_DATA) public data: PeriodicElement, private formBuilder: FormBuilder
   ) {
-
     this.editVeiculoForm = this.formBuilder.group({
       modelo: ['', Validators.required],
       placa: ['', Validators.required],
@@ -124,15 +123,11 @@ export class DialogOverviewExampleDialog {
   }
 
   onNoClick(): void {
-    console.log("aqui")
     this.dialogRef.close();
   }
 
   editVeiculo(veiculo: any) {
-    console.log("🚀 ~ file: table.ts:132 ~ DialogOverviewExampleDialog ~ editVeiculo ~ veiculo:", veiculo)
     this.veiculoToEdit = veiculo;
-
-
     this.editVeiculoForm.patchValue({
       id: veiculo.id,
       modelo: veiculo.modelo,
@@ -142,26 +137,126 @@ export class DialogOverviewExampleDialog {
       marca: veiculo.marca,
       ano: veiculo.ano
     });
+
+    if (this.editVeiculoForm.valid) {
+      const editVeiculoData = this.editVeiculoForm.value;
+      const veiculoId = this.veiculoToEdit.id;
+      this.http.put<any>(`http://localhost:8080/veiculos/${veiculoId}`, veiculo).subscribe(
+        (response) => {
+          this.dialogRef.close();
+        },
+        (error: any) => {
+          console.error('Ocorreu um erro ao editar o veículo:', error);
+        }
+      );
+    } else {
+      console.log('Campos obrigatórios não preenchidos.')
+    }
+  }
+
+  addVeiculo(veiculo: any) {
+    this.veiculoToEdit = veiculo;
+    this.editVeiculoForm.patchValue({
+      id: veiculo.id,
+      modelo: veiculo.modelo,
+      placa: veiculo.placa,
+      chassi: veiculo.chassi,
+      renavam: veiculo.renavam,
+      marca: veiculo.marca,
+      ano: veiculo.ano
+    });
+
+    if (this.editVeiculoForm.valid) {
+      const editVeiculoData = this.editVeiculoForm.value;
+      const veiculoId = this.veiculoToEdit.id;
+      this.http.post<any>(`http://localhost:8080/veiculos/`, veiculo).subscribe(
+        (response) => {
+          this.dialogRef.close();
+        },
+        (error: any) => {
+          console.error('Ocorreu um erro ao editar o veículo:', error);
+        }
+      );
+
+      // recarregar tabela
+      TableRowBindingExample
+    } else {
+      console.log('Campos obrigatórios não preenchidos.')
+    }
   }
 
   submitEditVeiculoForm() {
-    // Obtenha os valores do formulário de edição
+
     if (this.editVeiculoForm.valid) {
       const editVeiculoData = this.editVeiculoForm.value;
       const veiculoId = this.veiculoToEdit.id;
 
       this.http.put<any>(`http://localhost:8080/veiculos/${veiculoId}`, editVeiculoData).subscribe(
         (response) => {
-          console.log(response);
           this.dialogRef.close();
         },
         (error: any) => {
           console.error('Ocorreu um erro ao editar o veículo:', error);
-
         }
       );
-    } else {
-      // this.errorMessage = 'Campos obrigatórios não preenchidos.'
     }
   }
 }
+
+@Component({
+  selector: 'dialog-new-veiculo',
+  templateUrl: 'dialog-new-veiculo.html',
+  standalone: true,
+  styleUrls: ['dialog-overview-example-dialog.css'],
+  imports: [MatDialogModule, MatFormFieldModule, MatInputModule, FormsModule, MatButtonModule],
+})
+export class DialogNewVeiculo {
+  veiculoToEdit: any = null;
+  editVeiculoForm: FormGroup;
+  constructor(private http: HttpClient,
+    public dialogRef: MatDialogRef<DialogOverviewExampleDialog>,
+    @Inject(MAT_DIALOG_DATA) public data: PeriodicElement, private formBuilder: FormBuilder
+  ) {
+    this.editVeiculoForm = this.formBuilder.group({
+      modelo: ['', Validators.required],
+      placa: ['', Validators.required],
+      chassi: ['', Validators.required],
+      renavam: ['', Validators.required],
+      marca: ['', Validators.required],
+      ano: ['', Validators.required]
+    });
+  }
+
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+
+  addVeiculo(veiculo: any) {
+    this.veiculoToEdit = veiculo;
+    this.editVeiculoForm.patchValue({
+      id: veiculo.id,
+      modelo: veiculo.modelo,
+      placa: veiculo.placa,
+      chassi: veiculo.chassi,
+      renavam: veiculo.renavam,
+      marca: veiculo.marca,
+      ano: veiculo.ano
+    });
+
+    if (this.editVeiculoForm.valid) {
+      const editVeiculoData = this.editVeiculoForm.value;
+      const veiculoId = this.veiculoToEdit.id;
+      this.http.post<any>(`http://localhost:8080/veiculos/`, veiculo).subscribe(
+        (response) => {
+          this.dialogRef.close();
+        },
+        (error: any) => {
+          console.error('Ocorreu um erro ao editar o veículo:', error);
+        }
+      );
+    } else {
+      console.log('Campos obrigatórios não preenchidos.')
+    }
+  }
+}
+

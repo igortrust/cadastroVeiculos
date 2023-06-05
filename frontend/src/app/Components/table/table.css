@@ -1,0 +1,51 @@
+.demo-table {
+    width: 100%;
+  }
+
+  .mat-mdc-row .mat-mdc-cell {
+    border-bottom: 1px solid transparent;
+    border-top: 1px solid transparent;
+    cursor: pointer;
+  }
+
+  .mat-mdc-row:hover .mat-mdc-cell {
+    border-color: currentColor;
+  }
+
+  .demo-row-is-clicked {
+    font-weight: bold;
+  }
+
+  .btn-salvar {
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 5px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 12px;
+    margin: 2px 2px;
+    cursor: pointer;
+  }
+
+  btn-salvar:hover {
+    background-color: #3e8e41;
+  }
+
+  btn-sair {
+    background-color: #f44336;
+    border: none;
+    color: white;
+    padding: 5px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 12px;
+    margin: 2px 2px;
+    cursor: pointer;
+  }
+
+  .btn-sair:hover {
+    background-color: #da190b;
+  }
