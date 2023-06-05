@@ -1,0 +1,47 @@
+[
+    {
+        "modelo": "Fiesta",
+        "marca": "Ford",
+        "ano": 2019,
+        "placa": "ABC-1234",
+        "chassi": "123456789",
+        "renavam": "123456789",
+        "id": 1
+    },
+    {"modelo": "Uno",
+        "marca": "Fiat",
+        "ano": 2019,
+        "placa": "ABC-1232",
+        "chassi": "1234567892",
+        "renavam": "1234567892",
+        "id": 2},
+        {
+            "modelo": "Gol",
+            "marca": "Volkswagen",
+            "ano": 2019,
+            "placa": "ABC-1233",
+            "chassi": "1234567893",
+            "renavam": "1234567893",
+            "id": 3
+        },
+        {
+            "modelo": "Celta",
+            "marca": "Chevrolet",
+            "ano": 2019,
+            "placa": "ABC-1235",
+            "chassi": "1234567895",
+            "renavam": "1234567895",
+            "id": 4
+        },
+        {
+            "modelo": "Hb20",
+            "marca": "Hyundai",
+            "ano": 2019,
+            "placa": "ABC-1236",
+            "chassi": "1234567896",
+            "renavam": "1234567896",
+            "id": 5
+        }
+
+
+]

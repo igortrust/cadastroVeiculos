@@ -1,0 +1,154 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "version": "1.0.0",
+        "title": "API de Veículos"
+    },
+    "basePath": "/",
+    "tags": [
+        {
+            "name": "Veículos",
+            "description": "Operações relacionadas a veículos"
+        }
+    ],
+    "paths": {
+        "/veiculos": {
+            "get": {
+                "tags": [
+                    "Veículos"
+                ],
+                "summary": "Obter todos os veículos",
+                "responses": {
+                    "200": {
+                        "description": "Lista de veículos retornada com sucesso"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Veículos"
+                ],
+                "summary": "Criar um novo veículo",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "Veículo",
+                        "description": "Informações do veículo",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "placa": {
+                                    "type": "string",
+                                    "default": "SWA-1234"
+                                },
+                                "chassi": {
+                                    "type": "string",
+                                    "default": "SWA9BGRB08Z07G4CZBBB"
+                                },
+                                "renavam": {
+                                    "type": "string",
+                                    "default": "SWA12345678901"
+                                },
+                                "modelo": {
+                                    "type": "string",
+                                    "default": "Uno"
+                                },
+                                "marca": {
+                                    "type": "string",
+                                    "default": "Fiat"
+                                },
+                                "ano": {
+                                    "type": "integer",
+                                    "default": 2023
+                                }
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Veículo criado com sucesso"
+                    }
+                }
+            }
+        },
+        "/veiculos/{id}": {
+            "put": {
+                "tags": [
+                    "Veículos"
+                ],
+                "summary": "Atualizar um veículo existente",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "ID do veículo",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "body",
+                        "name": "Veículo",
+                        "description": "Informações atualizadas do veículo",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "placa": {
+                                    "type": "string",
+                                    "default": "SWA-1234"
+                                },
+                                "chassi": {
+                                    "type": "string",
+                                    "default": "SWA9BGRB08Z07G4CZBBB"
+                                },
+                                "renavam": {
+                                    "type": "string",
+                                    "default": "SWA12345678901"
+                                },
+                                "modelo": {
+                                    "type": "string",
+                                    "default": "Uno"
+                                },
+                                "marca": {
+                                    "type": "string",
+                                    "default": "Fiat"
+                                },
+                                "ano": {
+                                    "type": "integer",
+                                    "default": 2023
+                                }
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Veículo atualizado com sucesso"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Veículos"
+                ],
+                "summary": "Excluir um veículo",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "ID do veículo",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Veículo excluído com sucesso"
+                    }
+                }
+            }
+        }
+    }
+}

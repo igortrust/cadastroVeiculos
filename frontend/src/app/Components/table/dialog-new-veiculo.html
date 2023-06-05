@@ -1,0 +1,33 @@
+<h1 mat-dialog-title>Adicionar Veículo</h1>
+<div mat-dialog-content>
+  <p>Informe os dados do veículo.</p>
+  <mat-form-field>
+    <mat-label>Modelo</mat-label>
+    <input matInput [(ngModel)]="data.modelo">
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Marca</mat-label>
+    <input matInput [(ngModel)]="data.marca">
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Placa</mat-label>
+    <input matInput [(ngModel)]="data.placa">
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Chassi</mat-label>
+    <input matInput [(ngModel)]="data.chassi">
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Ano</mat-label>
+    <input matInput [(ngModel)]="data.ano">
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Renavam</mat-label>
+    <input matInput [(ngModel)]="data.renavam">
+  </mat-form-field>
+
+</div>
+<div mat-dialog-actions>
+  <button mat-button color="warn" (click)="onNoClick()">Sair</button>
+  <button mat-button color="primary" (click)="addVeiculo(data)">Salvar</button>
+</div>

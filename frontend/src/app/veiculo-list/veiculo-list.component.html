@@ -1,0 +1,59 @@
+
+
+<div class="modal" [class.show]="isEditing" *ngIf="veiculoToEdit">
+  <h2>Editar Veículo</h2>
+  <form [formGroup]="editVeiculoForm" (ngSubmit)="submitEditVeiculoForm()">
+    <!-- Campos para editar os dados do veículo -->
+    <label for="editModelo">Modelo:</label>
+    <input type="text" id="editModelo" formControlName="modelo">
+
+    <label for="editPlaca">Placa:</label>
+    <input type="text" id="editPlaca" formControlName="placa">
+
+    <label for="editChassi">Chassi:</label>
+    <input type="text" id="editChassi" formControlName="chassi">
+
+    <label for="editRenavam">Renavam:</label>
+    <input type="text" id="editRenavam" formControlName="renavam">
+
+    <label for="editMarca">Marca:</label>
+    <input type="text" id="editMarca" formControlName="marca">
+
+    <label for="editAno">Ano:</label>
+    <input type="text" id="editAno" formControlName="ano">
+
+    <button type="submit">Salvar</button>
+  </form>
+  <button (click)="closeEditModal()">Fechar</button>
+</div>
+<!-- Modal do formulário -->
+<div class="modal" [class.show]="isModalOpen">
+  <div class="modal-content">
+    <h2>Adicionar Veículo</h2>
+    <form [formGroup]="veiculoForm" (ngSubmit)="submitVeiculoForm()">
+      <label for="modelo">Modelo:</label>
+      <input type="text" id="modelo" formControlName="modelo">
+
+      <label for="placa">Placa:</label>
+      <input type="text" id="placa" formControlName="placa">
+
+      <label for="chassi">Chassi:</label>
+      <input type="text" id="chassi" formControlName="chassi">
+
+      <label for="renavam">Renavam:</label>
+      <input type="text" id="renavam" formControlName="renavam">
+
+      <label for="marca">Marca:</label>
+      <input type="text" id="marca" formControlName="marca">
+
+      <label for="ano">Ano:</label>
+      <input type="text" id="ano" formControlName="ano">
+
+      <button type="submit">Salvar</button>
+    </form>
+    <button (click)="closeVeiculoModal()">Fechar</button>
+  </div>
+</div>
+
+
+<p *ngIf="errorMessage" class="error-message">{{ errorMessage }}</p>
